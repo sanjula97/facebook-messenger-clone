@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
+import { Button, InputLabel, Input, FormHelperText } from "@material-ui/core";
+import { FormControl } from "@material-ui/core";
 import "./App.css";
 
 function App() {
@@ -18,20 +19,22 @@ function App() {
       <h1>Facebook messenger</h1>
 
       <form>
-        <input
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-        />
-
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          onClick={sendMessage}
-          disabled={!input}
-        >
-          Send message
-        </Button>
+        <FormControl>
+          <InputLabel>Enter a message..</InputLabel>
+          <Input
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={sendMessage}
+            disabled={!input}
+          >
+            Send message
+          </Button>
+        </FormControl>
       </form>
 
       {messages.map((message) => (
