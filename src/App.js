@@ -4,6 +4,7 @@ import { FormControl } from "@material-ui/core";
 import Message from "./Message";
 import "./App.css";
 import db from "./firebase";
+import firebase from "firebase";
 
 function App() {
   const [input, setInput] = useState("");
@@ -11,9 +12,11 @@ function App() {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    db.collection("messages").onSnapshot((snapshot) => {
-      setMessages(snapshot.docs.map((doc) => doc.data()));
-    });
+    db.collection("messages")
+      .orderBy("timestamp", "asc")
+      .onSnapshot((snapshot) => {
+        setMessages(snapshot.docs.map((doc) => doc.data()));
+      });
   }, []);
 
   useEffect(() => {
@@ -23,13 +26,22 @@ function App() {
   const sendMessage = (event) => {
     event.preventDefault();
 
-    setMessages([...messages, { userName: userName, message: input }]);
+    db.collection("messages").add({
+      message: input,
+      userName: userName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    // setMessages([...messages, { userName: userName, message: input }]);
     setInput("");
   };
 
   return (
     <div className="App">
       <h1>Facebook messenger</h1>
+
+      {messages.map((message) => (
+        <Message message={message} userName={userName} />
+      ))}
 
       <form>
         <FormControl>
@@ -49,10 +61,6 @@ function App() {
           </Button>
         </FormControl>
       </form>
-
-      {messages.map((message) => (
-        <Message message={message} userName={userName} />
-      ))}
     </div>
   );
 }
