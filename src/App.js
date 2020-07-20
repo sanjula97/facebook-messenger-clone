@@ -18,12 +18,12 @@ function App() {
 
   const sendMessage = (event) => {
     event.preventDefault();
-    setMessages([...messages, input]);
+    setMessages([...messages, { userName: userName, text: input }]);
     setInput("");
   };
 
   return (
-    <div className="app">
+    <div className="App">
       <h1>Facebook messenger</h1>
 
       <form>
@@ -46,7 +46,7 @@ function App() {
       </form>
 
       {messages.map((message) => (
-        <Message text={message.text} userName={message.userName} />
+        <Message message={message} userName={userName} />
       ))}
     </div>
   );
