@@ -56,13 +56,15 @@ function App() {
       </FlipMove>
 
       <form className="app__from">
-        <FormControl>
-          <InputLabel>Enter a message..</InputLabel>
+        <FormControl className="app__fromControl">
           <Input
+            className="app__input"
+            placeholder="Enter a message ..."
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
           <IconButton
+            className="app__iconButton"
             type="submit"
             variant="contained"
             color="primary"
