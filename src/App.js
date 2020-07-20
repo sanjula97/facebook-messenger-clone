@@ -5,6 +5,9 @@ import Message from "./Message";
 import "./App.css";
 import db from "./firebase";
 import firebase from "firebase";
+import FlipMove from "react-flip-move";
+import SendIcon from "@material-ui/icons/Send";
+import { IconButton } from "@material-ui/core";
 
 function App() {
   const [input, setInput] = useState("");
@@ -15,7 +18,9 @@ function App() {
     db.collection("messages")
       .orderBy("timestamp", "asc")
       .onSnapshot((snapshot) => {
-        setMessages(snapshot.docs.map((doc) => doc.data()));
+        setMessages(
+          snapshot.docs.map((doc) => ({ id: doc.id, message: doc.data() }))
+        );
       });
   }, []);
 
@@ -37,28 +42,35 @@ function App() {
 
   return (
     <div className="App">
+      <img
+        className="app__logo"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Facebook_Messenger_4_Logo.svg/512px-Facebook_Messenger_4_Logo.svg.png"
+        alt="messenger logo"
+      />
       <h1>Facebook messenger</h1>
 
-      {messages.map((message) => (
-        <Message message={message} userName={userName} />
-      ))}
+      <FlipMove>
+        {messages.map(({ id, message }) => (
+          <Message key={id} message={message} userName={userName} />
+        ))}
+      </FlipMove>
 
-      <form>
+      <form className="app__from">
         <FormControl>
           <InputLabel>Enter a message..</InputLabel>
           <Input
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
-          <Button
+          <IconButton
             type="submit"
             variant="contained"
             color="primary"
             onClick={sendMessage}
             disabled={!input}
           >
-            Send message
-          </Button>
+            <SendIcon />
+          </IconButton>
         </FormControl>
       </form>
     </div>
