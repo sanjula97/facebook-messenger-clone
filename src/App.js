@@ -42,18 +42,20 @@ function App() {
 
   return (
     <div className="App">
-      <img
-        className="app__logo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Facebook_Messenger_4_Logo.svg/512px-Facebook_Messenger_4_Logo.svg.png"
-        alt="messenger logo"
-      />
-      <h1>Facebook messenger</h1>
+      <div className="app__top">
+        <img
+          className="app__logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Facebook_Messenger_4_Logo.svg/512px-Facebook_Messenger_4_Logo.svg.png"
+          alt="messenger logo"
+        />
+        <h1>Facebook messenger</h1>
 
-      <FlipMove>
-        {messages.map(({ id, message }) => (
-          <Message key={id} message={message} userName={userName} />
-        ))}
-      </FlipMove>
+        <FlipMove>
+          {messages.map(({ id, message }) => (
+            <Message key={id} message={message} userName={userName} />
+          ))}
+        </FlipMove>
+      </div>
 
       <form className="app__from">
         <FormControl className="app__fromControl">

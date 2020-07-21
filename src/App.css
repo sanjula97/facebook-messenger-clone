@@ -1,18 +1,22 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
-
+.app__top {
+  flex: 1;
+}
 .app__logo {
   max-width: 100px;
   max-height: 100px;
 }
 
 .app__from {
+  flex: 0;
   padding: 20px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
+  /* position: fixed;
+  bottom: 0; */
+  /* z-index: 1; */
   width: 93%;
   margin: 20px;
   background-color: #e9e9eb;
